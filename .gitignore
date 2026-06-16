@@ -13,3 +13,6 @@ next-env.d.ts
 # env files
 .env*
 !.env.example
+
+# Claude Code (commit skills, ignore local settings)
+.claude/settings.local.json
