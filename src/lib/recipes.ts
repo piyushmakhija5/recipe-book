@@ -31,9 +31,12 @@ export function parseMinutes(s: string): number {
 
 /** Extract the text of a named `## Heading` section from the body */
 function extractSection(body: string, heading: string): string {
-  const re = new RegExp(`^##\\s+${heading}\\s*$([\\s\\S]*?)(?=^##\\s|$)`, 'im')
+  const re = new RegExp(`^##\\s+${heading}\\s*$`, 'im')
   const m  = body.match(re)
-  return m ? m[1].trim() : ''
+  if (!m) return ''
+  const rest = body.slice(body.indexOf(m[0]) + m[0].length)
+  const next = rest.search(/^##\s+/m)
+  return (next === -1 ? rest : rest.slice(0, next)).trim()
 }
 
 // ── section parsers ───────────────────────────────────────────────────────────
